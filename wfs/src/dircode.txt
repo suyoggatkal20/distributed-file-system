@@ -1,0 +1,112 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+std::vector<int> findPathToNum(int target) {
+    // Check if the target is within the range of the tree
+    if (target < 0 || target > 20) {
+        return {}; // Return empty vector if target is out of range
+    }
+
+    std::vector<int> path;
+    int targetIndex = target;
+
+    // Traverse back from target to root
+    while (targetIndex >= 0) {
+        path.push_back(targetIndex);
+        if (targetIndex == 0) {
+            break;
+        }
+        targetIndex = (targetIndex - 1) / 2;
+    }
+
+    // Reverse the path to get from root to target
+    std::reverse(path.begin(), path.end());
+    return path;
+}
+
+int main() {
+    int target = 19;
+    std::vector<int> path = findPathToNum(target);
+
+    // Print the path
+    std::cout << "Path to " << target << ": ";
+    for (int num : path) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+std::vector<int> findPathToNumberInNaryTree(int target, int n) {
+    std::vector<int> path;
+    int targetIndex = target; // Since we're starting from index 0, target is the index of the number.
+
+    // Step 1: Trace the path from the target index back to the root using the parent index
+    while (targetIndex >= 0) {
+        path.push_back(targetIndex); // Add the current node to the path
+        if (targetIndex == 0) break;  // Root node reached
+        targetIndex = (targetIndex - 1) / n; // Move to the parent node
+    }
+
+    // Step 2: Reverse the path to show it from root to target
+    std::reverse(path.begin(), path.end());
+
+    // Convert indices to actual numbers (since tree starts from 0)
+    for (int& index : path) {
+        index++; // Since node values are 1-based, we add 1 to each index.
+    }
+
+    return path;
+}
+
+int main() {
+    int target = 10;
+    int n = 3; // Number of children per node
+    std::vector<int> path = findPathToNumberInNaryTree(target, n);
+
+    // Output the path
+    if (!path.empty()) {
+        std::cout << "Path from root to " << target << ": ";
+        for (int num : path) {
+            std::cout << num << " ";
+        }
+    } else {
+        std::cout << "Number " << target << " not found in the tree.";
+    }
+
+    return 0;
+}
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+
+
+int main() {
+    int target = 8;
+    int n = 4; // Number of children per node
+    std::vector<int> path = findPathToNumberInNaryTree(target, n);
+
+    // Output the path
+    if (!path.empty()) {
+        std::cout << "Path from root to " << target << ": ";
+        for (int num : path) {
+            std::cout << num << " ";
+        }
+    } else {
+        std::cout << "Number " << target << " not found in the tree.";
+    }
+
+    return 0;
+}

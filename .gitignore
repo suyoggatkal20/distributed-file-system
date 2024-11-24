@@ -1,0 +1,48 @@
+*.o
+*.a
+*.so
+*.out
+*.exe
+# Debug files
+*.dSYM/
+*.log
+
+# Build directories
+build/
+bin/
+obj/
+.metadata/
+other/
+
+# IDE files (Example: for VS Code)
+.vscode/
+*.code-workspace
+
+# IDE files (Example: for Eclipse)
+/.project
+/.settings/
+*.cproject
+
+# CMake build files (if using CMake)
+CMakeCache.txt
+CMakeFiles/
+Makefile*
+
+# Autotools files
+*.in
+Makefile.in
+
+# Temporary files
+*~
+*.swp
+*.swo
+
+# Other unwanted files
+*.bak
+*.orig
+
+# Unit test framework output (if applicable)
+*.gcda
+*.gcno
+
+*.properties

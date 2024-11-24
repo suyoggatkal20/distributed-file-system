@@ -1,0 +1,79 @@
+{
+    "chunk-size": 300,
+    "chunks": [
+        {
+            "chunk-order": 1,
+            "chunk-size": 300,
+            "replicas": [
+                {
+                    "chunk-id": 10501,
+                    "node-id": 4,
+                    "node-ip": "127.0.0.1:8084",
+                    "replica-id": 185
+                },
+                {
+                    "chunk-id": 10501,
+                    "node-id": 2,
+                    "node-ip": "127.0.0.1:8082",
+                    "replica-id": 186
+                }
+            ]
+        },
+        {
+            "chunk-order": 2,
+            "chunk-size": 300,
+            "replicas": [
+                {
+                    "chunk-id": 10502,
+                    "node-id": 4,
+                    "node-ip": "127.0.0.1:8084",
+                    "replica-id": 187
+                },
+                {
+                    "chunk-id": 10502,
+                    "node-id": 2,
+                    "node-ip": "127.0.0.1:8082",
+                    "replica-id": 188
+                }
+            ]
+        },
+        {
+            "chunk-order": 3,
+            "chunk-size": 300,
+            "replicas": [
+                {
+                    "chunk-id": 10503,
+                    "node-id": 4,
+                    "node-ip": "127.0.0.1:8084",
+                    "replica-id": 189
+                },
+                {
+                    "chunk-id": 10503,
+                    "node-id": 2,
+                    "node-ip": "127.0.0.1:8082",
+                    "replica-id": 190
+                }
+            ]
+        },
+        {
+            "chunk-order": 4,
+            "chunk-size": 126,
+            "replicas": [
+                {
+                    "chunk-id": 10504,
+                    "node-id": 4,
+                    "node-ip": "127.0.0.1:8084",
+                    "replica-id": 191
+                },
+                {
+                    "chunk-id": 10504,
+                    "node-id": 2,
+                    "node-ip": "127.0.0.1:8082",
+                    "replica-id": 192
+                }
+            ]
+        }
+    ],
+    "file-num-chunks": 4,
+    "file-size": 1026
+}

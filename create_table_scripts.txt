@@ -1,0 +1,77 @@
+CREATE TABLE `chunk_replicas` (
+  `replica_id` int NOT NULL AUTO_INCREMENT,
+  `chunk_id` int NOT NULL,
+  `node_id` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`replica_id`),
+  KEY `chunk_id` (`chunk_id`),
+  KEY `node_id` (`node_id`),
+  CONSTRAINT `chunk_replicas_ibfk_1` FOREIGN KEY (`chunk_id`) REFERENCES `chunks` (`chunk_id`) ON DELETE CASCADE,
+  CONSTRAINT `chunk_replicas_ibfk_2` FOREIGN KEY (`node_id`) REFERENCES `nodes` (`node_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=597 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `chunk_replicas_slave` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `replica_id` bigint unsigned NOT NULL,
+  `chunk_id` bigint DEFAULT NULL,
+  `chunk_order` bigint DEFAULT NULL,
+  `chunk_size` bigint DEFAULT NULL,
+  `file_id` bigint DEFAULT NULL,
+  `file_path` varchar(2100) DEFAULT NULL,
+  `data_hash` varchar(32) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_replica_id` (`replica_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=597 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `chunks` (
+  `chunk_id` int NOT NULL AUTO_INCREMENT,
+  `file_id` int NOT NULL,
+  `chunk_order` int NOT NULL,
+  `chunk_size` bigint NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`chunk_id`),
+  KEY `file_id` (`file_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `directories` (
+  `directory_id` int NOT NULL AUTO_INCREMENT,
+  `parent_directory_id` int DEFAULT NULL,
+  `directory_name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`directory_id`),
+  UNIQUE KEY `unique_parent_directory_name` (`parent_directory_id`,`directory_name`),
+  CONSTRAINT `directories_ibfk_1` FOREIGN KEY (`parent_directory_id`) REFERENCES `directories` (`directory_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `files` (
+  `file_id` int NOT NULL AUTO_INCREMENT,
+  `file_name` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `file_size` bigint NOT NULL,
+  `num_chunks` int NOT NULL,
+  `directory_id` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`file_id`),
+  UNIQUE KEY `unique_file_name_directory` (`file_name`,`directory_id`),
+  KEY `directory_id` (`directory_id`),
+  CONSTRAINT `files_ibfk_1` FOREIGN KEY (`directory_id`) REFERENCES `directories` (`directory_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `nodes` (
+  `node_id` int NOT NULL AUTO_INCREMENT,
+  `node_ip` varchar(50) NOT NULL,
+  `total_storage` bigint NOT NULL,
+  `free_space` bigint NOT NULL,
+  `status` enum('ACTIVE','INACTIVE') DEFAULT 'ACTIVE',
+  `last_heartbeat` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`node_id`),
+  UNIQUE KEY `node_ip` (`node_ip`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+

@@ -1,0 +1,74 @@
+version: '3'
+services:
+  node1:
+    build: .
+    ports:
+      - "31001:31001"
+      - "31002:31002"
+      - "31003:31003"
+      - "31004:31004"
+    volumes:
+      - ./mfs:/app/mfs
+    command: ["bash", "-c", "make -C mfs && mfs/bin/app"]
+    networks:
+      - ccpp-network
+
+  node2:
+    build: .
+    ports:
+      - "32001:31001"
+      - "32002:31002"
+      - "32003:31003"
+      - "32004:31004"
+    volumes:
+      - ./mmr:/app/mmr
+    command: ["bash", "-c", "make -C mmr && mmr/bin/app"]
+    networks:
+      - ccpp-network
+
+  node3:
+    build: .
+    ports:
+      - "33001:31001"
+      - "33002:31002"
+      - "33003:31003"
+      - "33004:31004"
+    volumes:
+      - ./wfs:/app/wfs
+      - ./wmr:/app/wmr
+    command: ["bash", "-c", "make -C wfs && make -C wmr && wfs/bin/app && wmr/bin/app"]
+    networks:
+      - ccpp-network
+
+  node4:
+    build: .
+    ports:
+      - "34001:31001"
+      - "34002:31002"
+      - "34003:31003"
+      - "34004:31004"
+    volumes:
+      - ./wfs:/app/wfs
+      - ./wmr:/app/wmr
+    command: ["bash", "-c", "make -C wfs && make -C wmr && wfs/bin/app && wmr/bin/app"]
+    networks:
+      - ccpp-network
+
+  node5:
+    build: .
+    ports:
+      - "35001:31001"
+      - "35002:31002"
+      - "35003:31003"
+      - "35004:31004"
+    volumes:
+      - ./wfs:/app/wfs
+      - ./wmr:/app/wmr
+    command: ["bash", "-c", "make -C wfs && make -C wmr && wfs/bin/app && wmr/bin/app"]
+    networks:
+      - ccpp-network
+
+# Define the network for the nodes
+networks:
+  ccpp-network:
+    driver: bridge
